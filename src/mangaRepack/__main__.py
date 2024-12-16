@@ -1,9 +1,14 @@
-from argparse import ArgumentParser
+from argparse import ArgumentParser, FileType
+from glob import glob 
 from importlib import resources
 from pydoc import locate
 import tomli
+import re
 
-parser = ArgumentParser()
+from mangaRepack import repack
+
+parser = ArgumentParser(
+            usage="%(prog)s [options] files")
 
 def main():
     # Set up cli arguments
@@ -20,5 +25,25 @@ def main():
             metavar=arg.get("metavar", None),
             help=arg.get("help", None)
         )
+
+    # Add file mandatory positional path arg
+    parser.add_argument('file_paths', nargs='+', metavar="files")
+
+    args = parser.parse_args()
     
-    args = vars(parser.parse_args())
+    # Handle wild cards
+    file_paths = []
+    for arg in args.file_paths:  
+        possible_path = glob(arg)
+        
+        # Match only .cbz files using regex
+        if len(possible_path) > 0 and re.findall(r"^.*.cbz$", possible_path[0]):
+            file_paths += possible_path
+    
+    # Exit if no valid files found
+    if len(file_paths) > 0:
+        repack.repack(file_paths)
+    else:
+        print("No matching .cbz files found")
+        return
+    
