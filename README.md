@@ -1,0 +1,1 @@
+A simple python program for repacking .cbz comics and manga in a space efficient way.
