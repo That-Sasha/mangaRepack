@@ -5,7 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mangaRepack"
 dynamic = ["version"]
+requires-python = ">3.13"
 
 dependencies = [
   "argparse"
 ]
+
+
+[project.scripts]
+mangaRepack = "mangaRepack.__main__:main"
