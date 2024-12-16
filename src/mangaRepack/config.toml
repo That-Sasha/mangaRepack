@@ -1,0 +1,24 @@
+[arguments]
+
+# [arguments.size]  Required
+# name = ["-<command short>", "--<command name>"]  Required
+# type = "<type>"  Optional - default: str
+# action = "<action>"  Optional - default: store
+# dest = "<destination>"  Required
+# metavar = "<variable name>"  Optional - variable name to show to user when help message displayed
+# help = "<help message> Optional
+
+[arguments.size]
+name = ["--size"]
+type = "str"
+action = "store"
+dest = "size_str"
+metavar = "WidthxHeight"
+#help = "Screen resolution "
+
+[arguments.quality]
+name = ["-q", "--quality"]
+type = "int"
+action = "store"
+metavar = "0-100"
+dest = "quality_int"
